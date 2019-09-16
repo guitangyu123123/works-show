@@ -1,0 +1,134 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "微软雅黑"；
+}
+
+#wrapper {
+    width: 450px;
+    height: 600px;
+    background-color: #eee;
+    margin: 10px auto;
+    position: relative;
+    box-shadow: 0 0 10px rgb(141, 137, 137);
+}
+
+.header {
+    height: 40px;
+    background-color: black;
+    color: wheat;
+    font-size: 20px;
+    line-height: 40px;
+    padding: 0 10px;
+}
+
+.header span:last-child {
+    float: right;
+}
+
+.footer {
+    width: 430px;
+    height: 50px;
+    background-color: #999;
+    position: absolute;
+    bottom: 0;
+    padding: 5px 10px 0px 10px;
+}
+
+#icon {
+    width: 45px;
+    height: 45px;
+}
+
+img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.footer input {
+    width: 310px;
+    height: 40px;
+    font-size: 15px;
+    position: absolute;
+    margin-left: 5px;
+    bottom: 5px;
+    outline: none;
+}
+
+#btn {
+    float: right;
+    width: 60px;
+    height: 35px;
+    background-color: rgb(218, 206, 206);
+    border-radius: 10px;
+    text-align: center;
+    line-height: 35px;
+    margin-top: 5px;
+    font-family: "微软雅黑";
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#btn:hover {
+    color: #777;
+    background: #ddd;
+}
+
+.content {
+    width: 450px;
+    height: 510px;
+    background: url(images/湖面.jpg) no-repeat;
+    background-size: 450px 510px;
+    list-style: none;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.content li {
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 420px;
+    overflow: hidden;
+    display: inline-block;
+    word-wrap: break-word;
+    vertical-align: middle;
+    margin-bottom: 15px;
+}
+
+.content li img {
+    float: left;
+}
+
+.content li span {
+    background: #fafcf8;
+    padding: 10px;
+    border-radius: 10px;
+    float: left;
+    margin: 0 10px;
+    max-width: 310px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 3px #ccc;
+}
+
+.content li span.spanLeft {
+    float: left;
+    background-color: #fff;
+}
+
+.content li span.spanRight {
+    float: right;
+    background: #7cfc00;
+}
+
+.content li img.imgLeft {
+    float: left;
+}
+
+.content li img.imgRight {
+    float: right;
+}

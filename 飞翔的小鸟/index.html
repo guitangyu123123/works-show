@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        #sky {
+            width: 800px;
+            height: 600px;
+            margin: 0 auto;
+            background: url(images/sky.png) center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #bird {
+            width: 34px;
+            height: 25px;
+            background: url(images/birds.png) -8px -10px no-repeat;
+            position: absolute;
+            left: 100px;
+            top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="sky">
+        <div id="bird"></div>
+    </div>
+    <script>
+        var sky = document.getElementById('sky');
+        var bird = document.getElementById('bird');
+        //初始化背景图的值
+        var skyImg = {
+            x: 0
+        }
+        var birdImg = {
+                speedX: 5,
+                speedY: 0,
+                x: bird.offsetLeft,
+                y: bird.offsetTop
+            }
+            //游戏状态
+        var running = true;
+        setInterval(function() {
+                //如果游戏状态为true,那么背景每3毫秒往左移动5px
+                if (running) {
+                    skyImg.x -= 5;
+                    sky.style.backgroundPositionX = skyImg.x + 'px';
+                    //小鸟慢慢向下运动，碰到顶部或者底部，游戏结束
+                    birdImg.speedY += 1;
+                    birdImg.y += birdImg.speedY;
+                    if (birdImg.y < 0) {
+                        running = false;
+                        birdImg.y = 0;
+                    }
+                    if (birdImg.y + bird.offsetHeight > 600) {
+                        running = false;
+                        //小鸟停止的位置得减小鸟图自身的高度
+                        birdImg.y = 600 - bird.offsetHeight;
+                    }
+                    bird.style.top = birdImg.y + 'px';
+                }
+            }, 30)
+            //每次点击屏幕内容区域，小鸟向上走15px;
+        document.onclick = function() {
+                birdImg.speedY = -10;
+            }
+            //创建管道
+        function createPipe(leftW) {
+            var pipe = {};
+            pipe.x = leftW;
+            //上管道范围为200-300
+            pipe.tHeight = 200 + parseInt(Math.random() * 100);
+            pipe.bHeight = 600 - 200 - pipe.tHeight;
+            pipe.dTop = pipe.tHeight + 200;
+            //上管道
+            var tPipe = document.createElement('div');
+            tPipe.style.width = '52px';
+            tPipe.style.height = pipe.tHeight + 'px';
+            tPipe.style.background = 'url(./images/pipe2.png) no-repeat center bottom';
+            tPipe.style.position = 'absolute';
+            tPipe.style.top = '0px';
+            tPipe.style.left = pipe.x + 'px';
+            sky.appendChild(tPipe);
+            //下管道
+            var bPipe = document.createElement('div');
+            bPipe.style.width = '52px';
+            bPipe.style.height = pipe.bHeight + 'px';
+            bPipe.style.background = 'url(./images/pipe1.png) no-repeat center top';
+            bPipe.style.position = 'absolute';
+            bPipe.style.top = pipe.dTop + 'px';
+            bPipe.style.left = pipe.x + 'px';
+            sky.appendChild(bPipe);
+            //管道运动
+            setInterval(function() {
+                if (running) {
+                    //每30毫秒管道左移动2px
+                    pipe.x -= 2;
+                    tPipe.style.left = pipe.x + 'px';
+                    bPipe.style.left = pipe.x + 'px';
+                    //当最后一根管子完全离开屏幕时，重新设定管道位置
+                    if (pipe.x < -52) {
+                        pipe.x = 800;
+                    }
+                    //当小鸟的左边界加上自身宽度大于管道的左边界并且小于管道左边界加上管道宽度，而且小鸟的top值小于管道高度
+                    var tCheck = birdImg.x + 34 > pipe.x && birdImg.x < pipe.x + 52 && birdImg.y < pipe.tHeight;
+                    var bCheck = birdImg.x + 34 > pipe.x && birdImg.x < pipe.x + 52 && birdImg.y > pipe.tHeight + 200;
+                    if (tCheck || bCheck) {
+                        running = false;
+                    }
+                }
+            }, 30)
+        }
+        createPipe(400);
+        createPipe(600);
+        createPipe(800);
+        createPipe(1000);
+    </script>
+</body>
+
+</html>
